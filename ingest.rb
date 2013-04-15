@@ -65,3 +65,14 @@ end
 # puts get_genres.inspect
 
 puts get_concepts.inspect
+
+genres = get_genres
+concepts = get_concepts
+
+File.open('genres.yml', 'w') do |io|
+	io.write(genres.to_yaml)
+end
+
+File.open('concepts.yml', 'w') do |io|
+	io.write(concepts.to_yaml)
+end
