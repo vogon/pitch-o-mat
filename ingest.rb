@@ -26,7 +26,12 @@ end
 
 def get_genres
 	uri = build_gbapi_uri(GBAPI_GENRES_BASE, field_list: "id,name,date_added,site_detail_url,api_detail_url")
-	resp = Net::HTTP.get_response(uri)
+	resp = nil
+
+	begin
+		resp = Net::HTTP.get_response(uri)
+	end until resp.code.to_i == 200
+
 	json = JSON.load(resp.body)
 
 	GBGenre.new_genres_from_genres_json(json)
@@ -34,7 +39,12 @@ end
 
 def get_concepts_page(offset)
 	uri = build_gbapi_uri(GBAPI_CONCEPTS_BASE, field_list: "id,name,date_added,site_detail_url,api_detail_url", offset: offset)
-	resp = Net::HTTP.get_response(uri)
+	resp = nil
+
+	begin
+		resp = Net::HTTP.get_response(uri)
+	end	until resp.code.to_i == 200
+
 	json = JSON.load(resp.body)
 
 	return GBConcept.new_concepts_from_concepts_json(json), json["number_of_total_results"]
