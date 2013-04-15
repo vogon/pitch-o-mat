@@ -1,3 +1,4 @@
-source "https://rubygems.org"
+source "http://rubygems.org"
 
 gem "sinatra"
+gem "slim"
