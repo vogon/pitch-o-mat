@@ -2,8 +2,11 @@ doctype html
 html
 	center
 		h2 oh, you need a pitch?  how about a
-		h1 = pitchomat.random_genre.name
+		- genre = pitchomat.random_genre
+		a href="#{genre.link_out}"
+			h1 = genre.name
 		h2 game with a
-		h1 = pitchomat.random_concept.name
-		h2 about the
-		h1 = pitchomat.random_concept.name
+		- concepts = Array.new(2) { pitchomat.random_concept }
+		- concepts.each do |concept|
+		  	a href="#{concept.link_out}"
+		  		h1 = concept.name
