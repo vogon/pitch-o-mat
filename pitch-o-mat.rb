@@ -1,3 +1,4 @@
+require 'json'
 require 'sinatra'
 require 'slim'
 require 'yaml'
@@ -51,5 +52,17 @@ PITCHOMAT = PitchomatHelpers.new
 class Pitchomat < Sinatra::Base
 	get '/pitchme' do
 		slim :pitch, :locals => { :pitchomat => PITCHOMAT }
+	end
+
+	get '/ajax/genre' do
+		json = PITCHOMAT.random_genre.to_json
+
+		return json
+	end
+
+	get '/ajax/concept' do
+		json = PITCHOMAT.random_concept.to_json
+
+		return json
 	end
 end

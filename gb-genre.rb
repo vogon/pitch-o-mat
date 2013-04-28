@@ -1,3 +1,5 @@
+require 'json'
+
 class GBGenre
 	def initialize(id, name)
 		self.id = id
@@ -21,6 +23,13 @@ class GBGenre
 
 	def load_games_json(json)
 		self.n_games = json["number_of_total_results"].to_i
+	end
+
+	def to_json
+		{
+			name: self.name,
+			link_out: self.link_out
+		}.to_json
 	end
 
 	attr_accessor :id
