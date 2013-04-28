@@ -1,12 +1,26 @@
 doctype html
 html
-	center
-		h2 oh, you need a pitch?  how about a
-		- genre = pitchomat.random_genre
-		a href="#{genre.link_out}"
-			h1 = genre.name
-		h2 game with a
-		- concepts = Array.new(2) { pitchomat.random_concept }
-		- concepts.each do |concept|
-		  	a href="#{concept.link_out}"
-		  		h1 = concept.name
+	head
+		link rel="stylesheet" href="/css/pitch-o-mat.css"
+
+	body
+		center
+			- genre = pitchomat.random_genre
+			- concepts = Array.new(2) { pitchomat.random_concept }
+
+			h2 oh, you need a pitch?  how about a
+			a href="#{genre.link_out}"
+				h1 = genre.name
+
+			button type="button" onclick="addGenre(1)" add genre
+
+			h2 game with a
+			- concepts.each do |concept|
+			  	a href="#{concept.link_out}"
+			  		h1 = concept.name
+
+			button type="button" onclick="addConcept(2)" add concept
+
+		/script src="http://code.jquery.com/jquery-1.9.1.min.js"
+		script src="/js/jquery-1.9.1.js"
+		script src="/js/pitch-o-mat.js"
