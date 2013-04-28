@@ -9,15 +9,17 @@ html
 			- concepts = Array.new(2) { pitchomat.random_concept }
 
 			h2 oh, you need a pitch?  how about a
-			a href="#{genre.link_out}"
-				h1 = genre.name
+			div class="genres"
+				div class="genre"
+					a href="#{genre.link_out}" = genre.name
 
-			button type="button" onclick="addGenre(1)" add genre
+			button type="button" onclick="addGenreLast()" add genre
 
 			h2 game with a
-			- concepts.each do |concept|
-			  	a href="#{concept.link_out}"
-			  		h1 = concept.name
+			div class="concepts"
+				- concepts.each do |concept|
+					div class="concept"
+			  			a href="#{concept.link_out}" = concept.name
 
 			button type="button" onclick="addConcept(2)" add concept
 
