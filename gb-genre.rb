@@ -25,11 +25,11 @@ class GBGenre
 		self.n_games = json["number_of_total_results"].to_i
 	end
 
-	def to_json
+	def to_json(options = {})
 		{
 			name: self.name,
 			link_out: self.link_out
-		}.to_json
+		}.to_json(options)
 	end
 
 	attr_accessor :id
