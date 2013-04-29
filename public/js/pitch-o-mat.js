@@ -3,7 +3,7 @@
 var genres = JSON.parse($('[name="__genre"]')[0].value);
 var concepts = JSON.parse($('[name="__concepts"]')[0].value);
 
-function makeGenre(genre)
+function makeGenre(index, genre)
 {
 	var content = undefined;
 
@@ -14,12 +14,13 @@ function makeGenre(genre)
 	else
 	{
 		content = '<a href="' + genre.link_out + '" target="new">' + genre.name + '</a>';
+		content = content + '<sup><a title="remove genre" href="javascript:killGenreAt(' + index + ')">(X)</a></sup>';
 	}
 
 	return '<span class="genre">' + content + '</span>';
 }
 
-function makeConcept(concept)
+function makeConcept(index, concept)
 {
 	var content = undefined;
 
@@ -30,6 +31,7 @@ function makeConcept(concept)
 	else
 	{
 		content = '<a href="' + concept.link_out + '" target="new">' + concept.name + '</a>';
+		content = content + '<sup><a title="remove concept" href="javascript:killConceptAt(' + index + ')">(X)</a></sup>';
 	}
 
 	return '<li class="concept">' + content + '</li>';
@@ -63,7 +65,7 @@ function updateGenres()
 			$('.twogenres').css('display', 'inline');
 			$('.manygenres').css('display', 'none');
 
-			$('.genre_cdr').empty().append(makeGenre(genres[1]));
+			$('.genre_cdr').empty().append(makeGenre(1, genres[1]));
 		}
 		else
 		{
@@ -73,7 +75,7 @@ function updateGenres()
 
 			if (genres.length == 3)
 			{
-				$('.genre_cdr').empty().append(makeGenre(genres[1]) + ' and ' + makeGenre(genres[2]));
+				$('.genre_cdr').empty().append(makeGenre(1, genres[1]) + ' and ' + makeGenre(2, genres[2]));
 			}
 			else
 			{
@@ -81,15 +83,15 @@ function updateGenres()
 
 				for (var i = 1; i < genres.length - 1; i++)
 				{
-					$('.genre_cdr').append(makeGenre(genres[i]));
+					$('.genre_cdr').append(makeGenre(i, genres[i]));
 					$('.genre_cdr').append(', ');
 				}
 
-				$('.genre_cdr').append('and ' + makeGenre(genres[genres.length - 1]));
+				$('.genre_cdr').append('and ' + makeGenre(genres.length - 1, genres[genres.length - 1]));
 			}
 		}
 
-		$('.genre_car').empty().append(makeGenre(genres[0]));
+		$('.genre_car').empty().append(makeGenre(0, genres[0]));
 	}
 }
 
@@ -113,7 +115,7 @@ function updateConcepts()
 
 		for (var i = 0; i < concepts.length; i++)
 		{
-			$('.conceptlist').append(makeConcept(concepts[i]));
+			$('.conceptlist').append(makeConcept(i, concepts[i]));
 		}
 	}
 }
@@ -159,6 +161,18 @@ function putGenreAt(index, genre)
 function putConceptAt(index, concept)
 {
 	concepts[index] = concept;
+	updateConcepts();
+}
+
+function killGenreAt(index)
+{
+	genres.splice(index, 1);
+	updateGenres();
+}
+
+function killConceptAt(index)
+{
+	concepts.splice(index, 1);
 	updateConcepts();
 }
 
