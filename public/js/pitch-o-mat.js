@@ -134,7 +134,7 @@ function setTitle(container)
 {
 	console.log('setTitle(' + container + ')');
 
-	var newTitle = $('.' + container + ' .gametitle')[0].innerText;
+	var newTitle = $('.' + container + ' .gametitle')[0].textContent;
 	console.log('new title is ' + newTitle);
 
 	title = newTitle;
