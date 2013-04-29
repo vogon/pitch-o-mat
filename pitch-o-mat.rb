@@ -45,13 +45,44 @@ class PitchomatHelpers
 
 		concept
 	end
+
+	def get_concept(id)
+		@concepts.find { |concept| concept.id == id }
+	end
+
+	def get_genre(id)
+		@genres.find { |genre| genre.id == id }
+	end
 end
 
 PITCHOMAT = PitchomatHelpers.new
 
 class Pitchomat < Sinatra::Base
 	get '/pitchme' do
-		slim :pitch, :locals => { :pitchomat => PITCHOMAT }
+		slim :pitch, :locals => 
+			{
+				title: "<Insert Title Here>",
+				genre: Array.new(1) { PITCHOMAT.random_genre },
+				concepts: Array.new(2) { PITCHOMAT.random_concept }
+			}
+	end
+
+	get '/pitch' do
+		genre_list = (params['g'] or '')
+		concept_list = (params['c'] or '')
+
+		genres = genre_list.split(',').map { |id| PITCHOMAT.get_genre(id.to_i) }
+		concepts = concept_list.split(',').map { |id| PITCHOMAT.get_concept(id.to_i) }
+
+		# puts genres.inspect
+		# puts concepts.inspect
+
+		slim :pitch, :locals =>
+			{
+				title: (params['title'] or "<Insert Title Here>"),
+				genre: genres,
+				concepts: concepts
+			}
 	end
 
 	get '/ajax/genre' do

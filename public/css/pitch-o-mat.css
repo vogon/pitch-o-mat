@@ -2,6 +2,16 @@ body {
 	font-family: "Courier New", monospace;
 }
 
+.supplicant {
+	font-family: serif;
+	font-style: italic;
+}
+
+a.supplicant {
+	color: #000;
+	text-decoration: none;
+}
+
 .gametitle {
 	border-bottom: 1px dotted;
 }
@@ -14,22 +24,12 @@ body {
 	display: none;
 }
 
-.genre a {
+.stdlink {
 	color: #000;
 	text-decoration: none;
 	font-weight: bold;
 }
 
-.genre a:hover {
-	cursor: help;
-}
-
-.concept a {
-	color: #000;
-	text-decoration: none;
-	font-weight: bold;
-}
-
-.concept a:hover {
-	cursor: help;
+.permalink {
+	display: none;
 }

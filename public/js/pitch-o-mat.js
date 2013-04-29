@@ -2,6 +2,7 @@
 
 var genres = JSON.parse($('[name="__genre"]')[0].value);
 var concepts = JSON.parse($('[name="__concepts"]')[0].value);
+var title = $('[name="__title"]')[0].value;
 
 function makeGenre(index, genre)
 {
@@ -13,8 +14,8 @@ function makeGenre(index, genre)
 	}
 	else
 	{
-		content = '<a href="' + genre.link_out + '" target="new">' + genre.name + '</a>';
-		content = content + '<sup><a title="remove genre" href="javascript:killGenreAt(' + index + ')">(X)</a></sup>';
+		content = '<a class="stdlink" href="' + genre.link_out + '" target="new">' + genre.name + '</a>';
+		content = content + '<sup><a class="stdlink" title="remove genre" href="javascript:killGenreAt(' + index + ')">(X)</a></sup>';
 	}
 
 	return '<span class="genre">' + content + '</span>';
@@ -30,8 +31,8 @@ function makeConcept(index, concept)
 	}
 	else
 	{
-		content = '<a href="' + concept.link_out + '" target="new">' + concept.name + '</a>';
-		content = content + '<sup><a title="remove concept" href="javascript:killConceptAt(' + index + ')">(X)</a></sup>';
+		content = '<a class="stdlink" href="' + concept.link_out + '" target="new">' + concept.name + '</a>';
+		content = content + '<sup><a class="stdlink" title="remove concept" href="javascript:killConceptAt(' + index + ')">(X)</a></sup>';
 	}
 
 	return '<li class="concept">' + content + '</li>';
@@ -58,6 +59,8 @@ function updateGenres()
 			$('.onegenre').css('display', 'inline');
 			$('.twogenres').css('display', 'none');
 			$('.manygenres').css('display', 'none');
+
+			$('.genre_cdr').empty();
 		}
 		else if (genres.length == 2)
 		{
@@ -120,6 +123,24 @@ function updateConcepts()
 	}
 }
 
+function updateTitles()
+{
+	console.log('updateTitles');
+
+	$('.gametitle').empty().text(title);
+}
+
+function setTitle(container)
+{
+	console.log('setTitle(' + container + ')');
+
+	var newTitle = $('.' + container + ' .gametitle')[0].innerText;
+	console.log('new title is ' + newTitle);
+
+	title = newTitle;
+	updateTitles();
+}
+
 function addGenre(afterIndex)
 {
 	console.log("addGenre(" + afterIndex + ")");
@@ -176,5 +197,20 @@ function killConceptAt(index)
 	updateConcepts();
 }
 
+function ok()
+{
+	$('.permalink').css('display', 'inline');
+	$('.cancel_link').css('display', 'none');
+
+	var genre_list = genres.map(function(genre) {return genre.id;}).join(",")
+	var concept_list = concepts.map(function(concept) {return concept.id;}).join(",")
+
+	var permalink = "http://" + window.location.host + "/pitch?title=" + escape(title) + 
+		"&g=" + genre_list + "&c=" + concept_list;
+
+	$('.permalink').append($('<a href="' + permalink + '">' + permalink + '</a>'));
+}
+
 updateGenres();
 updateConcepts();
+updateTitles();

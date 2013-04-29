@@ -2,24 +2,23 @@ doctype html
 html
 	head
 		link rel="stylesheet" href="/css/pitch-o-mat.css"
+		title sayeth the Pitch-O-Mat...
 
 	body
-		- genre = Array.new(1) { pitchomat.random_genre }
-		- concepts = Array.new(2) { pitchomat.random_concept }
-
-		| sayeth the pitch-o-mat:
+		| sayeth the Pitch-O-Mat:
 
 		blockquote
 			h2 I. OVERVIEW
 
 			span class="nogenres"
-				span class="gametitle" contentEditable="true"
-					| &lt;Insert Title Here&gt;
-				|  is a game.
+				span class="gametitle" contentEditable="true" onblur="setTitle('nogenres')"
+				|  is a game
+				a class="stdlink" href="javascript:addGenreLast()" title="add genre"
+					sup (+)
+				| .
 
 			span class="genres" 
-				span class="gametitle" contentEditable="true"
-					| &lt;Insert Title Here&gt;
+				span class="gametitle" contentEditable="true" onblur="setTitle('genres')"
 				|  is a 
 				span class="genre_car"
 				|  game
@@ -32,23 +31,37 @@ html
 					|  genre
 				span class="manygenres"
 					|  genres
+				a class="stdlink" href="javascript:addGenreLast()" title="add genre"
+					sup (+)
 				| .
-			
-			button type="button" onclick="addGenreLast()" +
 
 			span class="noconcepts"
 				| It's probably got, like... a cover system and microtransaction unlocks or something like that.
 				br
-				| I dunno.  Ask me again later.
+				| I dunno.  Ask me again later
+				a class="stdlink" href="javascript:addConceptLast()" title="add concept"
+					sup (+)
+				| .
 
 			span class="concepts"
-				| It is built around the following key elements:
+				| It is built around the following key elements
+				a class="stdlink" href="javascript:addConceptLast()" title="add concept"
+					sup (+)
+				| :
 				ul class="conceptlist"
 			
-			button type="button" onclick="addConceptLast()" +
+		| how do you find the fruits of the Pitch-O-Mat's labors?
 
-		| the judgment of the pitch-o-mat shall not be questioned.
+		blockquote
+			a class="supplicant ok_link" href="javascript:ok()" satisfactory.
 
+		span class="permalink"
+			| very well.  here is a link to this pitch, for your puny human reference: 
+
+		blockquote
+			a class="supplicant cancel_link" href="javascript:window.location.href='/pitchme'" you sure you don't have anything better than that, Pitch-O-Mat?
+
+		input type="hidden" name="__title" value=title
 		input type="hidden" name="__genre" value=genre.to_json
 		input type="hidden" name="__concepts" value=concepts.to_json
 
