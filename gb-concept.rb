@@ -23,12 +23,12 @@ class GBConcept
 		self.n_games = json["results"]["games"].count
 	end
 	
-	def to_json(options = {})
+	def to_json(*args)
 		{
 			id: self.id,
 			name: self.name,
 			link_out: self.link_out
-		}.to_json(options)
+		}.to_json(*args)
 	end
 
 	attr_accessor :id
