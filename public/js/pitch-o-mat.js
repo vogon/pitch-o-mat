@@ -200,6 +200,7 @@ function killConceptAt(index)
 function ok()
 {
 	$('.permalink').css('display', 'inline');
+	$('.ok_link').attr('href', null);
 	$('.cancel_link').css('display', 'none');
 
 	var genre_list = genres.map(function(genre) {return genre.id;}).join(",")
@@ -208,7 +209,7 @@ function ok()
 	var permalink = "http://" + window.location.host + "/pitch?title=" + escape(title) + 
 		"&g=" + genre_list + "&c=" + concept_list;
 
-	$('.permalink').append($('<a href="' + permalink + '">' + permalink + '</a>'));
+	$('.permalink:first').append($('<a href="' + permalink + '">' + permalink + '</a>'));
 }
 
 updateGenres();
