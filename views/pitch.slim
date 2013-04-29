@@ -4,24 +4,49 @@ html
 		link rel="stylesheet" href="/css/pitch-o-mat.css"
 
 	body
-		center
-			- genre = pitchomat.random_genre
-			- concepts = Array.new(2) { pitchomat.random_concept }
+		- genre = Array.new(1) { pitchomat.random_genre }
+		- concepts = Array.new(2) { pitchomat.random_concept }
 
-			h2 oh, you need a pitch?  how about a
-			div class="genres"
-				div class="genre"
-					a href="#{genre.link_out}" = genre.name
+		| sayeth the pitch-o-mat:
 
-			button type="button" onclick="addGenreLast()" add genre
+		blockquote
+			h2 I. OVERVIEW
 
-			h2 game with a
-			div class="concepts"
-				- concepts.each do |concept|
-					div class="concept"
-			  			a href="#{concept.link_out}" = concept.name
+			span class="nogenres"
+				| &lt;Insert Title Here&gt; is a game.
 
-			button type="button" onclick="addConcept(2)" add concept
+			span class="genres" 
+				| &lt;Insert Title Here&gt; is a 
+				span class="genre_car"
+				|  game
+				span class="twogenres"
+					|  with elements of the 
+				span class="manygenres"
+					|  with elements of the 
+				span class="genre_cdr"
+				span class="twogenres"
+					|  genre
+				span class="manygenres"
+					|  genres
+				| .
+			
+			button type="button" onclick="addGenreLast()" +
+
+			span class="noconcepts"
+				| It's probably got, like... a cover system and microtransaction unlocks or something like that.
+				br
+				| I dunno.  Ask me again later.
+
+			span class="concepts"
+				| It is built around the following key elements:
+				ul class="conceptlist"
+			
+			button type="button" onclick="addConceptLast()" +
+
+		| the judgment of the pitch-o-mat shall not be questioned.
+
+		input type="hidden" name="__genre" value=genre.to_json
+		input type="hidden" name="__concepts" value=concepts.to_json
 
 		/script src="http://code.jquery.com/jquery-1.9.1.min.js"
 		script src="/js/jquery-1.9.1.js"

@@ -27,6 +27,7 @@ class GBGenre
 
 	def to_json(options = {})
 		{
+			id: self.id,
 			name: self.name,
 			link_out: self.link_out
 		}.to_json(options)
