@@ -57,6 +57,10 @@ end
 
 PITCHOMAT = PitchomatHelpers.new
 
+def dejunkify(str)
+	str.tr('\xa0', '')
+end
+
 class Pitchomat < Sinatra::Base
 	get '/pitchme' do
 		slim :pitch, :locals => 
@@ -71,6 +75,9 @@ class Pitchomat < Sinatra::Base
 		genre_list = (params['g'] or '')
 		concept_list = (params['c'] or '')
 
+		title = (params['title'] or "<Insert Title Here>")
+		sane_title = title.encode!('UTF-8', 'UTF-8', :invalid => :replace)
+
 		genres = genre_list.split(',').map { |id| PITCHOMAT.get_genre(id.to_i) }
 		concepts = concept_list.split(',').map { |id| PITCHOMAT.get_concept(id.to_i) }
 
@@ -79,7 +86,7 @@ class Pitchomat < Sinatra::Base
 
 		slim :pitch, :locals =>
 			{
-				title: (params['title'] or "<Insert Title Here>"),
+				title: sane_title,
 				genre: genres,
 				concepts: concepts
 			}
